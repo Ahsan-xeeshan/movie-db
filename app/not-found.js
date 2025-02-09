@@ -8,7 +8,8 @@ export default function NotFoundPage() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white text-center p-6">
       <h1 className="text-8xl font-extrabold animate-bounce">404</h1>
       <p className="text-2xl mt-4">
-        Oops! The page **{pathName}** you're looking for doesn't exist.
+        Oops! The page **{pathName}** you&apos;re looking for doesn&apos;t
+        exist.
       </p>
       <p className="text-gray-400 mt-2">
         It might have been removed or is temporarily unavailable.
