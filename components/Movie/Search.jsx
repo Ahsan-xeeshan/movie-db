@@ -8,16 +8,22 @@ const Search = () => {
   const searchParams = useSearchParams();
   const query = searchParams.get("query") || "";
   const [searchResults, setSearchResults] = useState([]);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (query.length > 2) {
-        SearchMovie(query).then(setSearchResults).catch(console.error);
-      } else {
-        setSearchResults([]); // Clear if query is too short
-      }
-    }, 500); // Wait 500ms before making a request
 
-    return () => clearTimeout(timer);
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      if (query.length > 2) {
+        try {
+          const results = await SearchMovie(query);
+          setSearchResults(results);
+        } catch (error) {
+          console.error("Error fetching search results:", error);
+        }
+      } else {
+        setSearchResults([]); // Clear results if query is too short
+      }
+    };
+
+    fetchSearchResults();
   }, [query]);
 
   return (
