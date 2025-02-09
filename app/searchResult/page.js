@@ -1,4 +1,3 @@
-"use client";
 import Search from "@/components/Movie/Search";
 import { Suspense } from "react";
 
