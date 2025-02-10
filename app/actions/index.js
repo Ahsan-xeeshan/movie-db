@@ -17,6 +17,7 @@ async function registerUser(formData) {
     throw error;
   }
 }
+
 async function performLogin(formData) {
   try {
     const credential = {};

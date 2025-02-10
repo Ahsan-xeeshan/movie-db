@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import { dbConnect } from "@/services/mongo";
 import localFont from "next/font/local";
 import "./globals.css";
 import AuthProvider from "./providers/AuthProvider";
@@ -20,7 +21,8 @@ export const metadata = {
   description: "A complete entertainment arena",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  await dbConnect();
   return (
     <html lang="en">
       <body

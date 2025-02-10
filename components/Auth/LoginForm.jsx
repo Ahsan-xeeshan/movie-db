@@ -15,7 +15,6 @@ const LoginForm = () => {
     event.preventDefault();
     try {
       const formData = new FormData(event.currentTarget);
-      console.log(formData);
       const found = await performLogin(formData);
 
       if (found) {
