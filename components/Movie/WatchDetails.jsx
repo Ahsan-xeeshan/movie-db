@@ -2,12 +2,14 @@
 import { detailWatch, removeMovie } from "@/app/actions";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const WatchDetails = ({ auth }) => {
   const baseImageUrl = "https://image.tmdb.org/t/p/w1280";
   const [watchList, setWatchList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     if (!auth?.id) return;
@@ -90,10 +92,10 @@ const WatchDetails = ({ auth }) => {
           className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6"
         >
           {watchList.map((movie) => (
-            <Link
-              href={`/movie/${movie.movieId}`}
+            <div
+              onClick={() => router.push(`/movie/${movie.movieId}`)}
               key={movie._id}
-              className="bg-moviedb-black rounded-lg overflow-hidden shadow-lg group relative"
+              className="bg-moviedb-black rounded-lg overflow-hidden shadow-lg group relative cursor-pointer"
             >
               <Image
                 src={`${baseImageUrl}${movie.poster}`}
@@ -112,14 +114,17 @@ const WatchDetails = ({ auth }) => {
                     {movie.releaseTime.split("-")[0]}
                   </span>
                   <button
-                    onClick={() => handleRemove(movie._id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRemove(movie._id);
+                    }}
                     className="bg-moviedb-red text-light px-3 py-1 rounded-full hover:bg-moviedb-red/80 transition"
                   >
                     Remove
                   </button>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       )}
