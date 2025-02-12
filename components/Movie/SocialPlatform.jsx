@@ -31,7 +31,7 @@ const SocialPlatform = () => {
         Facebook
       </a>
       <a
-        href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
+        href={`https://x.com/intent/tweet?url=${encodeURIComponent(
           currentUrl
         )}`}
         target="_blank"

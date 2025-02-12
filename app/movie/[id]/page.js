@@ -1,6 +1,11 @@
-import MoreLike from "@/components/Movie/MoreLike";
-
 import MovieDetails from "@/components/Movie/MovieDetails";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+
+// Lazy load MoreLike component
+const MoreLike = dynamic(() => import("@/components/Movie/MoreLike"), {
+  suspense: true, // Suspense ব্যবহার করে Lazy Load করা হবে
+});
 
 const {
   getMovieById,
@@ -8,10 +13,7 @@ const {
   getSimilarMovie,
 } = require("@/lib/movie-data");
 
-export async function generateMetadata(
-  { params: { id }, searchParams },
-  parent
-) {
+export async function generateMetadata({ params: { id } }) {
   const details = await getMovieById(id);
 
   return {
@@ -25,15 +27,17 @@ export async function generateMetadata(
   };
 }
 
-const page = async ({ params: { id }, searchParams }) => {
+const page = async ({ params: { id } }) => {
   const details = await getMovieById(id);
   const castList = await getCastList(id);
   const similar = await getSimilarMovie(id);
+
   return (
     <>
       <MovieDetails details={details} castList={castList} />
-
-      <MoreLike similar={similar} />
+      <Suspense fallback={<p>Loading similar movies...</p>}>
+        <MoreLike similar={similar} />
+      </Suspense>
     </>
   );
 };
