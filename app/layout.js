@@ -1,3 +1,4 @@
+import CustomHead from "@/components/Home/CustomHead";
 import Navbar from "@/components/Navbar";
 import { dbConnect } from "@/services/mongo";
 import localFont from "next/font/local";
@@ -29,6 +30,7 @@ export default async function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
       >
         <AuthProvider>
+          <CustomHead />
           <Navbar />
           {children}
         </AuthProvider>
